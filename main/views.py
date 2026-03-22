@@ -8,7 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixi
 from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.db.models import ProtectedError
+from django.db.models import ProtectedError, Q
+from django.db.models.functions import Lower, Concat
 
 
 def home(request):
@@ -32,6 +33,15 @@ class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'main/category_list.html'
     context_object_name = 'categories'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(category_name__icontains=query)
+
+        return queryset
+    paginate_by = 10
 
 class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
@@ -67,7 +77,31 @@ class SupplierListView(LoginRequiredMixin, ListView):
     model = Supplier
     template_name = 'main/supplier_list.html'
     context_object_name = 'suppliers'
+    paginate_by = 10
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        city = self.request.GET.get('city')
+
+        if query:
+            queryset = queryset.filter(
+                Q(supplier_name__icontains=query) |
+                Q(contact_person__icontains=query) |
+                Q(city__icontains=query) |
+                Q(state__icontains=query)
+            )
+
+        if city:
+            queryset = queryset.filter(city__icontains=city)
+
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cities'] = Supplier.objects.values_list('city', flat=True).distinct()
+        return context
+            
 class SupplierUpdateView(LoginRequiredMixin, UpdateView):
     model = Supplier
     form_class = SupplierForm
@@ -102,6 +136,35 @@ class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'main/product_list.html'
     context_object_name = 'products'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        category = self.request.GET.get('category')
+        supplier = self.request.GET.get('supplier')
+        
+        if query:
+            queryset = queryset.filter(
+                Q(product_name__icontains=query) |
+                Q(SKU__icontains=query) |
+                Q(category__category_name__icontains=query) |
+                Q(supplier__supplier_name__icontains=query) 
+            )
+        
+        if category: 
+            queryset = queryset.filter(category__category_name=category)
+
+        if supplier:
+            queryset = queryset.filter(supplier__supplier__name=supplier)
+
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Product.objects.values_list('category__category_name', flat=True).distinct()
+        context['suppliers'] = Product.objects.values_list('supplier__supplier_name', flat=True).distinct()
+        return context
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
@@ -137,6 +200,34 @@ class CustomerListView(LoginRequiredMixin, ListView):
     model = Customer
     template_name = 'main/customer_list.html'
     context_object_name = 'customers'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset =  super().get_queryset()
+        query = self.request.GET.get('q')
+        city = self.request.GET.get('city')
+        state = self.request.GET.get('state')
+
+        if query:
+            queryset = queryset.filter(
+                Q(customer_name__icontains = query) |
+                Q(address__icontains = query) |
+                Q(city__icontains = query) |
+                Q(state__icontains = query)
+            )
+
+        if city:
+            queryset = queryset.filter(city=city)
+        if state:
+            queryset = queryset.filter(state=state)
+
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cities'] = Customer.objects.values_list('city', flat=True).distinct()
+        context['states'] = Customer.objects.values_list('state', flat=True).distinct()
+        return context
 
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     model = Customer
