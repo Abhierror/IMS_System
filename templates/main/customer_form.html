@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Add Customer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+
+                    <h3 class="fw-bold mb-4">
+                        {% if instance.form.pk %}
+                            Edit Product
+                        {% else %}
+                            Add Product
+                        {% endif %}
+                    </h3>
+
+                    <form method="post" class="row g-3" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="col-12">
+                                <div class="alert alert-danger">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Supplier Name -->
+                        <div class="col-md-6">
+                            <label for="id_product_name" class="form-label">Customer Name</label>
+                            {{ form.customer_name }}
+                            <div class="text-danger small">{{ form.customer_name.errors }}</div>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="col-md-6">
+                            <label for="id_category" class="form-label">Phone Number</label>
+                            {{ form.phone_number }}
+                            <div class="text-danger small">{{ form.phone_number.errors }}</div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6">
+                            <label for="id_sub_category" class="form-label">Email</label>
+                            {{ form.email }}
+                            <div class="text-danger small">{{ form.email.errors }}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="id_sub_category" class="form-label">Address</label>
+                            {{ form.address }}
+                            <div class="text-danger small">{{ form.email.errors }}</div>
+                        </div>
+
+                        <!-- City -->
+                        <div class="col-md-6">
+                            <label for="id_customer" class="form-label">City</label>
+                            {{ form.city }}
+                            <div class="text-danger small">{{ form.city.errors }}</div>
+                        </div>
+
+                        <!-- State -->
+                        <div class="col-md-4">
+                            <label for="id_cost_price" class="form-label">State</label>
+                            {{ form.state }}
+                            <div class="text-danger small">{{ form.state.errors }}</div>
+                        </div>
+
+                        <!-- Postal Code -->
+                        <div class="col-md-4">
+                            <label for="id_selling_price" class="form-label">Postal Code</label>
+                            {{ form.postal_code }}
+                            <div class="text-danger small">{{ form.postal_code.errors }}</div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="col-12 d-flex justify-content-between mt-3">
+                            <a href="{% url 'customer_list' %}" class="btn btn-light border">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                {% if instance.form.pk %}
+                                    Edit Customer
+                                {% else %}
+                                    Save Customer
+                                {% endif %}
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

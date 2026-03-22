@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - StockFlow{% endblock %}
+
+{% block content %}
+{% if user.is_authenticate %}
+<section class="hero-section text-center">
+
+    <div class="container">
+
+        <h1 class="hero-title">
+            Streamline Your <span class="text-blue">Inventory</span><br>
+            <span class="text-blue">Management</span>
+        </h1>
+
+        <p class="hero-subtitle mt-4">
+            Gain total control over your stock, automate orders, and scale your
+            operations with our all-in-one cloud platform. Real-time insights at your
+            fingertips.
+        </p>
+
+    </div>
+
+</section>
+{% else %}
+<section class="hero-section text-center">
+
+    <div class="container">
+
+        <h1 class="hero-title">
+            Streamline Your <span class="text-blue">Inventory</span><br>
+            <span class="text-blue">Management</span>
+        </h1>
+
+        <p class="hero-subtitle mt-4">
+            Gain total control over your stock, automate orders, and scale your
+            operations with our all-in-one cloud platform. Real-time insights at your
+            fingertips.
+        </p>
+
+        <div class="mt-4">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-3">Login to Dashboard</a>
+        </div>
+
+    </div>
+
+</section>
+{% endif %}
+{% endblock %}

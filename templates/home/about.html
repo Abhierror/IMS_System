@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ABOUT US -->
+    <div class="container col-md-10">
+    <h2 class="mb-4 text-center" style="font-size: 40px; font-weight: 800; margin-top: 30px;">About Us</h2>
+        <p style="font-weight: 400; margin-bottom: 80px;">
+            Welcome to StockFlow—Where Your Stock Finds Its Flow.
+            We believe that inventory management shouldn’t be a chaotic, manual struggle. Founded by former warehouse managers and software engineers, StockFlow was born out of frustration with expensive, complex systems that didn’t actually solve the day-to-day problems of tracking stock.
+            We saw too many businesses losing sales due to overstocking, stockouts, and inaccurate data.
+            Our mission is to provide intuitive, real-time inventory tracking that brings clarity to your operations. Whether you are managing inventory across multiple warehouses, selling on various e-commerce channels, or tracking raw materials, StockFlow bridges the gap between your physical inventory and your digital records.
+            We don't just sell software; we provide the operational agility you need to grow your business without the overhead.
+        </p>   
+    </div>
+<!-- Features -->
+    <div class="container col-md-7">
+    <h2 class="mb-4 text-center" style="font-size: 40px; font-weight: 800; margin-top: 30px;">Our Features</h2>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        <strong>Product Management</strong>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <ul>
+            <li>Add / Edit / Delete products</li>
+            <li>SKU / Product code and Category & Sub-category of products</li>
+            <li>Unit price and cost price of products</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+        <strong>Stock Management</strong>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <ul>
+            <li>Current stock quantity</li>
+            <li>Stock in / Stock out</li>
+            <li>Automatic stock update after transactions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+        <strong>Customer / Supplier Records</strong>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <ul>
+            <li>Customer records</li>
+            <li>Supplier records</li>
+            <li>Purchase history & Quantity sold & date</li>            
+        </ul>
+      </div>
+    </div>
+  </div>
+    <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+        <strong>Low-Stock Alerts and Analytics Dashboard</strong>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <ul>
+            <li>Monthly sales trend</li>
+            <li>Category-wise stock distribution</li>
+            <li>Low-stock products list</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

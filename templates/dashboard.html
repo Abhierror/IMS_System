@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-6 mx-auto">
+        <div class="alert alert-success text-center fade show" role="alert">
+            Welcome to StockFlow <strong>{{ user.username|capfirst }}</strong>!
+        </div>
+    </div>
+    <div class="m-5 mt-0">
+        <ul>
+            <h1>Dashboard</h1>
+            <li><h5>Monthly Sales</h5>
+            <h5>Monthly Profit</h5>
+            <h5>5 Recent transactions</h5>
+            <h5>Total Products</h5>
+            <h5>Low Stock Count</h5>
+            <h5>Low stock alert</h5>
+            <h5>Total Sales</h5>
+        </ul>
+    </div>
+{% endblock %}

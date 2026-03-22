@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Add Category{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+
+                    <h3 class="fw-bold mb-4">
+                        {% if form.instance.pk %}
+                            Edit Category
+                        {% else %}
+                            Add Category
+                        {% endif %}
+                    </h3>
+
+                    <form method="post" class="row g-3" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="col-12">
+                                <div class="alert alert-danger">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Category Name -->
+                        <div class="col-md-6">
+                            <label for="id_category_name" class="form-label">Category Name</label>
+                            {{ form.category_name }}
+                            <div class="text-danger small">{{ form.category_name.errors }}</div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="col-12">
+                            <label for="id_description" class="form-label">Category Description</label>
+                            {{ form.description }}
+                            <div class="text-danger small">{{ form.description.errors }}</div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="col-12 d-flex justify-content-between mt-3">
+                            <a href="{% url 'category_list' %}" class="btn btn-light border">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                {% if form.instance.pk %}
+                                    Update Category
+                                {% else %}
+                                    Save Category
+                                {% endif %}    
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

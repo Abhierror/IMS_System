@@ -1,0 +1,78 @@
+/* Global body with hero-style gradient background */
+html, body {
+    min-height: 100%;
+}
+
+body {
+    background: linear-gradient(#eaf6fb, #ffffff);
+    font-family: system-ui;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar brand logo style */
+.logo-box {
+    color: #2daae1;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Page content padding (applies to all pages) */
+.page-content {
+    padding: 50px 0;
+}
+
+/* Homepage hero section */
+.hero-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.hero-title {
+    font-size: 55px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.text-blue {
+    color: #2daae1;
+}
+
+.hero-subtitle {
+    max-width: 700px;
+    margin: auto;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.badge-box {
+    display: inline-block;
+    background: #e6f4fb;
+    color: #2daae1;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+/* Buttons */
+.btn-primary {
+    background: #2daae1;
+    border: none;
+    padding: 12px 24px;
+}
+
+.btn-primary:hover {
+    background: #1b8fc4;
+}
+#navbar-nav {
+    gap: 10px;
+}
+.offcanvas-body h5 {
+    margin-bottom: 20px;
+}
+.offcanvas-body li {
+    margin-bottom: 20px;
+}
+.offcanvas-start {
+    --bs-offcanvas-width: 250px;
+}
