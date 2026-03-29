@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Supplier, Customer, Sale, Category
+from .models import Product, Supplier, Customer, Sale, Category, StockTransaction, SaleItem
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -113,5 +113,57 @@ class CustomerForm(forms.ModelForm):
             }),
             'postal_code': forms.TextInput(attrs={
                 'class': 'form-control'
+            })
+        }
+
+class StockTransactionForm(forms.ModelForm):
+    class Meta:
+        model = StockTransaction
+        fields = ['product', 'quantity', 'supplier', 'remarks']
+        widgets = {
+            'product': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 1,
+                'placeholder': 'min 1',                
+            }),
+            'supplier': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'remarks': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 2
+            }),
+        }
+
+class SaleForm(forms.ModelForm):
+    class Meta:
+        model = Sale
+        fields = ['invoice_number', 'customer', 'payment_method', 'payment_status']
+        widgets = {
+            'customer': forms.Select(attrs={
+                'class': 'form-select',              
+            }),
+            'payment_method': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'payment_status': forms.Select(attrs={
+                'class': 'form-select'
+            })
+        }
+
+class SaleItemForm(forms.ModelForm):
+    class Meta:
+        model = SaleItem
+        fields = ['product', 'quantity']
+        widgets = {
+            'product': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 1.
             })
         }

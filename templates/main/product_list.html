@@ -62,8 +62,7 @@
                     <th>SKU</th>
                     <th>Category</th>
                     <th>Supplier</th>
-                    <th>Cost Price</th>
-                    <th>Selling Price</th>
+                    <th>Stock Quantity</th>
                     <th>Reorder Level</th>
                     <th>Actions</th>
                 </tr>
@@ -77,8 +76,15 @@
                     <td>{{ product.SKU }}</td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.supplier }}</td>
-                    <td>{{ product.cost_price }}</td>
-                    <td>{{ product.selling_price }}</td>
+                    <td>
+                        {% if product.get_current_stock <= product.reorder_level %}
+                            <span class="text-danger fw-bold">
+                                {{ product.get_current_stock }}
+                            </span>
+                        {% else %}
+                            {{ product.get_current_stock }}
+                        {% endif %}
+                    </td>
                     <td>{{ product.reorder_level }}</td>
                     <td>
                         <a href="{% url 'product_update' product.pk %}" class="btn btn-sm btn-warning">Edit</a>
