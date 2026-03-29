@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Add Stocks{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-4">
+
+                        <h3 class="fw-bold mb-4">
+                            Add Stocks
+                        </h3>    
+
+                        <form method="POST" class="row g-3 novalidate">
+                            {% csrf_token %}
+
+                            {% if form.non_field_error %}
+                                <div class="col-12">
+                                    <div class="alert alert-danger">
+                                        {{ form.non_field_error }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- product -->
+                            <div class="col-md-6">
+                                <label for="id_product" class="form-label">Product</label>
+                                {{ form.product }}
+                                <div class="text-danger small">{{ form.product.errors }}</div>
+                            </div>
+                            
+                            <!-- quantity -->
+                            <div class="col-md-6">
+                                <label for="quantity" class="form-label">Quantity</label>
+                                {{ form.quantity }}
+                                <div class="text-danger small">{{ form.quantity.errors }}</div>
+                            </div> 
+                            
+                            <!-- Supplier -->
+                            <div class="col-md-6">
+                                <label for="id_supplier" class="form-label">Supplier</label>
+                                {{ form.supplier }}
+                                <div class="text-danger small">{{ form.supplier.errors }}</div>
+                            </div>
+                            
+                            <!-- remarks -->
+                            <div class="col-md-6">
+                                <label for="remarks" class="form-label">Remarks</label>
+                                {{ form.remarks }}
+                                <div class="text-danger small">{{ form.remarks.errors }}</div>
+                            </div>
+                            
+                            <!-- Buttons -->
+                            <div class="col-12 d-flex justify-content-between mt-3">
+                                <a href="{% url 'dashboard' %}" class="btn btn-light border">
+                                    Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary px-4">
+                                    Add Stocks
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

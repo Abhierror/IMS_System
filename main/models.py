@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db.models import Sum, Case, When, IntegerField, F
 from django.urls import reverse
 
+# ----------------- Category Model --------------------
 class Category(models.Model):
     category_name = models.CharField("Enter product category.", max_length=50, unique=True)
     description = models.CharField("Enter category description.", max_length=300, null=True, blank=True)
@@ -18,6 +19,7 @@ class Category(models.Model):
         ordering = ['category_name']
     
 
+# ----------------- Product Model --------------------
 class Product(models.Model):
     product_name = models.CharField("Enter product name.", max_length=100)
     SKU = models.CharField("Enter product SKU.", max_length=10, unique=True, db_index=True)
@@ -63,7 +65,8 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("product-detail", args=[str(self.id)])
     
-    
+
+# ----------------- Supplier Model --------------------    
 class Supplier(models.Model):
     supplier_name = models.CharField("Enter supplier name." ,max_length=50)
     contact_person = models.CharField("Enter supplier's contact person name.", max_length=100)
@@ -83,7 +86,9 @@ class Supplier(models.Model):
 
     def get_absolute_url(self):
         return reverse("supplier-detail", args=[str(self.id)])
-    
+
+
+# ----------------- Customer Model --------------------    
 class Customer(models.Model):
     customer_name = models.CharField("Enter customer name." ,max_length=50)
     phone_number = models.CharField("Enter customer's phone number.", max_length=10, unique=True, null=True, blank=True)
@@ -103,7 +108,9 @@ class Customer(models.Model):
 
     def get_absolute_url(self):
         return reverse("customer-detail", args=[str(self.id)])
+    
 
+# ----------------- Stock Transaction Model --------------------
 class StockTransaction(models.Model):
     product = models.ForeignKey(
         'Product', 
@@ -157,6 +164,8 @@ class StockTransaction(models.Model):
     class Meta:
         ordering = ["-transaction_date"]
     
+ 
+# ----------------- Sales Model --------------------   
 class Sale(models.Model):
     invoice_number = models.CharField(max_length=10, unique=True, db_index=True)
     customer = models.ForeignKey(
@@ -201,10 +210,12 @@ class Sale(models.Model):
 
     def get_absolute_url(self):
         return reverse("sale-detail", args=[str(self.id)])
+    
 
+# ----------------- Sale Item Model --------------------
 class SaleItem(models.Model):
-    sale_id = models.ForeignKey('Sale', on_delete=models.PROTECT, related_name = 'sale_items')
-    product_id = models.ForeignKey('Product', on_delete=models.PROTECT, related_name='sale_items')
+    sale = models.ForeignKey('Sale', on_delete=models.PROTECT, related_name = 'sale_items')
+    product = models.ForeignKey('Product', on_delete=models.PROTECT, related_name='sale_items')
     quantity = models.PositiveIntegerField()
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     total_price = models.DecimalField(decimal_places=2, max_digits=10)
@@ -216,6 +227,8 @@ class SaleItem(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
+# ----------------- Audit Log Model --------------------
 class AuditLog(models.Model):
     user = models.ForeignKey(
         User, 
